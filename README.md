@@ -40,6 +40,12 @@ fill. The fallback colour is derived from a hash of the name rather than picked 
 so a person keeps the same colour across renders and sessions — random-per-render would
 make the same list look different on every reload. An explicit `tone` overrides it.
 
+`SessionItem` is the other piece of layout worth pointing at. Title and preview share one
+text track: the title sizes to its content up to 50% of that track, the preview takes the
+rest and clips mid-word, and the avatar stack plus timestamp stay pinned on the right. The
+Figma frame instead uses two equal columns with a 240px cap on the title, which makes every
+preview start at the same x. The live product does not, so this follows the live layout.
+
 ## Interaction states
 
 None are drawn in the file, so these are inferred from the component vocabulary:
@@ -65,24 +71,34 @@ Tailwind v4's preflight gives buttons the default arrow — only the read-only p
 ## Fidelity
 
 Verified by screenshotting the running panel at 710px and diffing it against the Figma
-export pixel by pixel. Section, row and column positions line up exactly; the residual
-differences are text antialiasing and about 4px of cumulative width across the four field
-pills, which is glyph-metric variance between Figma's renderer and Chrome's.
+export pixel by pixel. Section, row and column positions line up; the residual differences
+are text antialiasing and about 4px of cumulative width across the four field pills, which
+is glyph-metric variance between Figma's renderer and Chrome's.
+
+Sessions is the deliberate exception. The Figma frame repeats one row three times and
+clips the list at four rows; the fixture uses five distinct rows from Planhat's own UI,
+sizes the section to that content, and follows the live title/preview packing instead of
+Figma's two-column track.
 
 ## Assumptions
 
-- **Copy is verbatim.** Every string — breadcrumb, description, session titles, page names,
-  ticket titles and descriptions — is taken from the Figma node rather than rewritten, so
-  line wrapping and truncation match the source.
+- **Copy is verbatim.** Breadcrumb, description, page names, ticket titles and descriptions
+  are taken from the Figma node rather than rewritten, so line wrapping and truncation
+  match the source. Three exceptions, all deliberate: the participant names behind the
+  avatars, the Featured Pages timestamps, and the Sessions rows — the Figma frame repeats
+  one session three times, so those use the five distinct rows from Planhat's own UI
+  instead. Two of them are long enough to clip, which is what exercises the preview track.
 - **Health score ring.** The 8/10 arc is an exported vector, so `score` currently drives
   only the number. A real component would compute the arc from the value; that is a
   deliberate cut, not an oversight.
 - **Avatars.** The design ships two photos and one orange `Z` letter fallback. The fixture
-  varies this deliberately — seven photos across the stacks, and four letter avatars in
-  different colours — so the component is exercised against a realistic mix rather than
+  varies this deliberately — eight photos across the stacks, plus orange `Z` and indigo
+  `J` letter avatars — so the component is exercised against a realistic mix rather than
   the same two faces repeated. The extra portraits come from
   [randomuser.me](https://randomuser.me), are committed locally so nothing is fetched at
-  runtime, and are placeholders to swap for real user images.
+  runtime, and are placeholders to swap for real user images. `Z` and `J` pin their tones
+  in the fixture because the screenshot specifies those colours; everyone else still
+  derives theirs from the name.
 - **The avatar palette beyond orange and moss.** Those two are the only fallback fills in
   the file. Planhat's tokens follow Radix naming (`colors/<hue>/tokens/bg-solid`), so
   indigo, plum, ruby and bronze are the matching Radix solid steps — a reasonable
@@ -95,10 +111,15 @@ pills, which is glyph-metric variance between Figma's renderer and Chrome's.
 ## What I would question rather than quietly fix
 
 - **The session connector overshoots its row.** The rail line is 44px on a 36px row, so it
-  runs into the following item and still renders below the last one, where the section's
-  clip cuts it mid-stroke. I reproduced that, including the stub under the last row. The
-  fix is either a 36px line or a line that stops at the last dot, but which one depends on
-  whether the list is meant to read as a continuing timeline.
+  runs into the following item, and in the design it also trails below the last one until
+  the section's 178px clip cuts it mid-stroke. I kept the 44px connector between rows but
+  gave the last one an explicit 8px stub — 2px past its dot — so the list ends the same way
+  at any row count. Whether it should end there or stop flush at the dot depends on whether
+  the list is meant to read as a continuing timeline.
+- **Sessions is pinned to 178px, which only fits four rows.** 28px of head, a 6px gap and
+  four 36px rows. Any fifth session would be clipped, so I let the section size to its
+  content instead. If the height is meant to be a real cap, the list needs a scroll
+  container and a "show all" affordance rather than a silent cut.
 - **The tickets table is unreachable past 678px.** It is authored at 1050px
   (40 / 280 / 420 / 160 / 150) inside a 678px column with no scroll container, so
   "Combined ARR (USD)" and the settings column are cut off and cannot be reached. I
@@ -109,10 +130,17 @@ pills, which is glyph-metric variance between Figma's renderer and Chrome's.
   holds five distinct tickets — the same five that appear in the sibling frame and in the
   case study screenshot. I used the five distinct rows, since four identical rows is a
   Figma layering accident rather than a design intent.
-- **Three session items repeat verbatim.** "Demo for the  Admins" / "Updated and review
-  before sending" appears three times, with a double space inside the title. I kept both,
-  including the double space, but a list where three of four rows are identical is not
-  testing the layout against realistic content.
+- **Three session items repeat verbatim.** "Demo for the Admins" / "Updated and review
+  before sending" appears three times. A list where three of four rows are identical is
+  not testing the layout against realistic content, so I used five distinct sessions from
+  Planhat's own UI instead. Doing so surfaced a real bug: with a long title *and* a long
+  subtitle the row grew past the panel and pushed the timestamp out of view. The row now
+  clamps properly.
+- **Session titles and previews are not two columns.** The Figma frame lays them out as
+  equal flex tracks with a 240px cap on the title, which makes every preview start at the
+  same x. Live UI sizes the title to its content (capped at 50% of the text track) and
+  lets the preview take the rest, clipping mid-word with no ellipsis. I matched the live
+  layout; an ellipsis would signal the truncation better.
 - **The header block is 2px taller than its contents.** The frame above Sessions is pinned
   to 194px while its children add up to 192px. I matched it with a `min-h`, but it looks
   like leftover slack from a resize rather than intentional spacing.

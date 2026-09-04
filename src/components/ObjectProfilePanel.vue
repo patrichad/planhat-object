@@ -25,8 +25,8 @@ defineProps<{ profile: ObjectProfile }>()
       <DescriptionBlock :text="profile.description" />
     </div>
 
-    <!-- Clipped at 178px, which cuts the connector trailing the last session. -->
-    <section class="flex h-[178px] shrink-0 flex-col gap-1.5 overflow-clip">
+    <!-- Sized to its rows; the design pins 178px, which only fits four. -->
+    <section class="flex shrink-0 flex-col gap-1.5">
       <SectionHead title="Sessions">
         <template #actions>
           <IconButton icon="add" label="New session" :size="24" />
