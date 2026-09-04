@@ -53,7 +53,9 @@ None are drawn in the file, so these are inferred from the component vocabulary:
   link and the column-settings button.
 
 Everything is a Tailwind variant. No animation library, and transitions are a 75ms colour
-fade so nothing feels sticky.
+fade so nothing feels sticky. Every clickable target carries `cursor-pointer`, since
+Tailwind v4's preflight gives buttons the default arrow — only the read-only pill keeps
+`cursor-default`.
 
 ## Fidelity
 

@@ -35,7 +35,7 @@ defineProps<{ tickets: Ticket[] }>()
             <button
               type="button"
               aria-label="Table settings"
-              class="flex size-6 items-center justify-center rounded-md transition-colors duration-75 hover:bg-bg-soft active:bg-line focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base"
+              class="flex size-6 cursor-pointer items-center justify-center rounded-md transition-colors duration-75 hover:bg-bg-soft active:bg-line focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base"
             >
               <AppIcon name="column-settings" :size="14" />
             </button>
@@ -54,7 +54,7 @@ defineProps<{ tickets: Ticket[] }>()
               <button
                 type="button"
                 :aria-label="`Expand ${ticket.title}`"
-                class="flex size-6 items-center justify-center rounded-md transition-colors duration-75 hover:bg-line focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base"
+                class="flex size-6 cursor-pointer items-center justify-center rounded-md transition-colors duration-75 hover:bg-line focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base"
               >
                 <AppIcon name="row-expand" :size="14" />
               </button>

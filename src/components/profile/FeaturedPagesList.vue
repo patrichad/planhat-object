@@ -10,7 +10,7 @@ defineProps<{ pages: FeaturedPage[] }>()
     <li v-for="page in pages" :key="page.id" class="w-full shrink-0">
       <button
         type="button"
-        class="flex h-[41px] w-full items-center overflow-clip border-b-hairline border-line text-left transition-colors duration-75 hover:bg-bg-soft active:bg-line focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-green-base"
+        class="flex h-[41px] w-full cursor-pointer items-center overflow-clip border-b-hairline border-line text-left transition-colors duration-75 hover:bg-bg-soft active:bg-line focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-green-base"
       >
         <span class="flex w-[334px] shrink-0 items-center gap-3 px-2">
           <span class="flex size-6 shrink-0 items-center justify-center rounded-[6px]">

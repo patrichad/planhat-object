@@ -22,7 +22,7 @@ withDefaults(
     type="button"
     :aria-label="label"
     :class="[
-      'flex items-center justify-center rounded-md text-transparent',
+      'flex cursor-pointer items-center justify-center rounded-md text-transparent',
       'transition-colors duration-75',
       'hover:bg-bg-soft active:bg-line',
       'focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base',

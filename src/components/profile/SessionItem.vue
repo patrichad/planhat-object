@@ -21,7 +21,7 @@ defineProps<{ session: Session }>()
 
     <button
       type="button"
-      class="flex min-h-6 flex-1 items-center gap-2.5 self-stretch rounded-[6px] p-2 text-left transition-colors duration-75 hover:bg-bg-soft active:bg-line focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base"
+      class="flex min-h-6 flex-1 cursor-pointer items-center gap-2.5 self-stretch rounded-[6px] p-2 text-left transition-colors duration-75 hover:bg-bg-soft active:bg-line focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base"
     >
       <!-- `whitespace-pre` keeps the double space inside "Demo for the  Admins". -->
       <span class="flex min-w-0 max-w-60 flex-1 flex-col items-start overflow-clip">

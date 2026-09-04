@@ -23,7 +23,7 @@ defineProps<{ field: Field; readOnly?: boolean }>()
       'flex h-7 shrink-0 items-center overflow-clip rounded-md border-hairline border-line text-left transition-colors duration-75',
       readOnly
         ? 'cursor-default bg-bg-soft'
-        : 'hover:border-bg-solid active:bg-bg-soft focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base',
+        : 'cursor-pointer hover:border-bg-solid active:bg-bg-soft focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-green-base',
     ]"
   >
     <span
