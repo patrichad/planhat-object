@@ -4,7 +4,7 @@ import { trendAi } from '@/data/trendAi'
 </script>
 
 <template>
-  <main class="flex min-h-full justify-center bg-page-background py-10">
+  <main class="flex min-h-full justify-center bg-page-background">
     <ObjectProfilePanel :profile="trendAi" />
   </main>
 </template>
