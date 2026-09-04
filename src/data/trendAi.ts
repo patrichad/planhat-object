@@ -1,20 +1,38 @@
+import ana from '@/assets/avatars/ana.jpg'
+import ben from '@/assets/avatars/ben.jpg'
+import cara from '@/assets/avatars/cara.jpg'
+import dev from '@/assets/avatars/dev.jpg'
+import elin from '@/assets/avatars/elin.jpg'
+import femi from '@/assets/avatars/femi.jpg'
 import ownerAvatar from '@/assets/avatars/owner.png'
-import userAvatar from '@/assets/avatars/user-a.png'
-import type { ObjectProfile } from '@/types'
+import sam from '@/assets/avatars/user-a.png'
+import type { AvatarRef, ObjectProfile } from '@/types'
 
-const photo = (name: string) => ({ name, src: userAvatar })
-const initial = (name: string, char: string) => ({
-  name,
-  initial: char,
-  tone: 'orange' as const,
-})
+/*
+ * People with a photo get one; the rest fall back to a letter on a solid fill,
+ * and `Avatar` derives the colour from the name so it stays stable.
+ */
+const people = {
+  ana: { name: 'Ana Ferreira', src: ana },
+  ben: { name: 'Ben Okafor', src: ben },
+  cara: { name: 'Cara Lindqvist', src: cara },
+  dev: { name: 'Dev Raman', src: dev },
+  elin: { name: 'Elin Sandberg', src: elin },
+  femi: { name: 'Femi Adeyemi', src: femi },
+  sam: { name: 'Sam Whitlock', src: sam },
+  mick: { name: 'Mick', src: ownerAvatar },
+  hana: { name: 'Hana Kim' },
+  zara: { name: 'Zara Haddad' },
+  otto: { name: 'Otto Lind' },
+  marta: { name: 'Marta Silva' },
+} satisfies Record<string, AvatarRef>
 
 export const trendAi: ObjectProfile = {
   breadcrumb: 'Trend AI',
   name: 'Trend AI',
   healthScore: 8,
   fields: [
-    { label: 'Owner:', value: { kind: 'person', person: { name: 'Mick', src: ownerAvatar } } },
+    { label: 'Owner:', value: { kind: 'person', person: people.mick } },
     { label: 'Phase', value: { kind: 'text', text: 'Adoption' } },
     { label: 'Attachments', value: { kind: 'tags', tags: ['2'] } },
     { label: 'ARR', value: { kind: 'text', text: '€13,800' } },
@@ -26,7 +44,7 @@ export const trendAi: ObjectProfile = {
       id: 'permissions',
       title: 'Update Agent Permissions',
       subtitle: 'Do you update the access for me?',
-      participants: [photo('Ana'), photo('Ben'), photo('Cara')],
+      participants: [people.ana, people.ben, people.hana],
       timeAgo: '21m ago',
       state: 'default',
     },
@@ -34,7 +52,7 @@ export const trendAi: ObjectProfile = {
       id: 'demo-1',
       title: 'Demo for the  Admins',
       subtitle: 'Updated and review before sending',
-      participants: [photo('Ana'), photo('Ben'), photo('Cara')],
+      participants: [people.cara, people.sam, people.zara],
       timeAgo: '21m ago',
       state: 'default',
     },
@@ -42,7 +60,7 @@ export const trendAi: ObjectProfile = {
       id: 'demo-2',
       title: 'Demo for the  Admins',
       subtitle: 'Updated and review before sending',
-      participants: [photo('Ana'), photo('Ben'), initial('Zara', 'Z')],
+      participants: [people.dev, people.elin, people.otto],
       timeAgo: '21m ago',
       state: 'default',
     },
@@ -50,7 +68,7 @@ export const trendAi: ObjectProfile = {
       id: 'demo-3',
       title: 'Demo for the  Admins',
       subtitle: 'Updated and review before sending',
-      participants: [photo('Ana'), initial('Zara', 'Z')],
+      participants: [people.femi, people.marta],
       timeAgo: '21m ago',
       state: 'default',
     },

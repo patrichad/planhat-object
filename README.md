@@ -35,6 +35,11 @@ Icons are the SVGs exported from Figma, downloaded into `src/assets/` and commit
 Figma asset URLs expire after about a week, and hand-tracing the paths would drift from the
 source, so the exported bytes are the artifact.
 
+`Avatar` takes a photo when one exists and otherwise falls back to a letter on a solid
+fill. The fallback colour is derived from a hash of the name rather than picked at random,
+so a person keeps the same colour across renders and sessions — random-per-render would
+make the same list look different on every reload. An explicit `tone` overrides it.
+
 ## Interaction states
 
 None are drawn in the file, so these are inferred from the component vocabulary:
@@ -72,8 +77,18 @@ pills, which is glyph-metric variance between Figma's renderer and Chrome's.
 - **Health score ring.** The 8/10 arc is an exported vector, so `score` currently drives
   only the number. A real component would compute the arc from the value; that is a
   deliberate cut, not an oversight.
-- **Avatars.** Two photos ship with the design. The stacks reuse them, and the orange `Z`
-  initial is the design's own fallback treatment.
+- **Avatars.** The design ships two photos and one orange `Z` letter fallback. The fixture
+  varies this deliberately — seven photos across the stacks, and four letter avatars in
+  different colours — so the component is exercised against a realistic mix rather than
+  the same two faces repeated. The extra portraits come from
+  [randomuser.me](https://randomuser.me), are committed locally so nothing is fetched at
+  runtime, and are placeholders to swap for real user images.
+- **The avatar palette beyond orange and moss.** Those two are the only fallback fills in
+  the file. Planhat's tokens follow Radix naming (`colors/<hue>/tokens/bg-solid`), so
+  indigo, plum, ruby and bronze are the matching Radix solid steps — a reasonable
+  inference, but they should be confirmed against the real palette. Worth noting that white
+  text on these fills is low contrast; the design's own moss is about 2.8:1, so I matched
+  its bar rather than raising it unilaterally, but it is a question for the design system.
 - **Section collapse.** The chevrons are labelled and focusable but do not collapse
   anything, since the file has no collapsed state to match.
 

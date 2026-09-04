@@ -11,12 +11,17 @@ export type IconName =
   | 'row-expand'
   | 'x-close'
 
-/** A photo avatar, or initials on a solid fill when there is no photo. */
+export type AvatarTone = 'orange' | 'moss' | 'indigo' | 'plum' | 'ruby' | 'bronze'
+
+/**
+ * A photo avatar, or a letter on a solid fill when there is no photo. Both the
+ * letter and the tone are derived from `name` unless they are given explicitly.
+ */
 export interface AvatarRef {
   name: string
   src?: string
   initial?: string
-  tone?: 'orange' | 'moss'
+  tone?: AvatarTone
 }
 
 /**

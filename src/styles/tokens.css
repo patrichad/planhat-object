@@ -47,9 +47,17 @@
   --color-green-base: #33a578;
   --color-green-label: #1d3b2d;
 
-  /* avatar fallbacks */
+  /*
+   * Avatar fallback fills. Orange and moss are the two the design uses; the
+   * rest extend the same Radix-style `bg-solid` step so a name without a photo
+   * still gets a distinct, stable colour. See the README.
+   */
   --color-orange-solid: #f36a35;
   --color-moss-solid: #61a560;
+  --color-indigo-solid: #3e63dd;
+  --color-plum-solid: #ab4aba;
+  --color-ruby-solid: #e54666;
+  --color-bronze-solid: #a18072;
   --color-white-to-dark: #ffffff;
 
   /* ---- Radius ------------------------------------------------------ */
