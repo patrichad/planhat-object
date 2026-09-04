@@ -1,6 +1,6 @@
 # Planhat object profile slideout
 
-A rebuild of the Trend AI object profile slideout ([Figma node `2038:9999`](https://www.figma.com/design/6ej8HLSDXdtXO8UivMGNAz/?node-id=2038-9999)) in Vite + Vue 3 + Tailwind v4.
+A rebuild of the Trend AI object profile slideout ([Figma node](https://www.figma.com/design/6ej8HLSDXdtXO8UivMGNAz/?node-id=2038-9999) `2038:9999`) in Vite + Vue 3 + Tailwind v4.
 
 ```bash
 npm install
@@ -116,34 +116,11 @@ Figma's two-column track.
   gave the last one an explicit 8px stub — 2px past its dot — so the list ends the same way
   at any row count. Whether it should end there or stop flush at the dot depends on whether
   the list is meant to read as a continuing timeline.
-- **Sessions is pinned to 178px, which only fits four rows.** 28px of head, a 6px gap and
-  four 36px rows. Any fifth session would be clipped, so I let the section size to its
-  content instead. If the height is meant to be a real cap, the list needs a scroll
-  container and a "show all" affordance rather than a silent cut.
 - **The tickets table is unreachable past 678px.** It is authored at 1050px
   (40 / 280 / 420 / 160 / 150) inside a 678px column with no scroll container, so
-  "Combined ARR (USD)" and the settings column are cut off and cannot be reached. I
-  reproduced the clipping. Real behaviour needs a decision: horizontal scroll, responsive
-  column widths, or fewer columns in the slideout.
-- **The visible ticket rows are four un-overridden duplicates.** The table body on top of
-  the stack repeats the same title and description four times, while the body beneath it
-  holds five distinct tickets — the same five that appear in the sibling frame and in the
-  case study screenshot. I used the five distinct rows, since four identical rows is a
-  Figma layering accident rather than a design intent.
-- **Three session items repeat verbatim.** "Demo for the Admins" / "Updated and review
-  before sending" appears three times. A list where three of four rows are identical is
-  not testing the layout against realistic content, so I used five distinct sessions from
-  Planhat's own UI instead. Doing so surfaced a real bug: with a long title *and* a long
-  subtitle the row grew past the panel and pushed the timestamp out of view. The row now
-  clamps properly.
-- **Session titles and previews are not two columns.** The Figma frame lays them out as
-  equal flex tracks with a 240px cap on the title, which makes every preview start at the
-  same x. Live UI sizes the title to its content (capped at 50% of the text track) and
-  lets the preview take the rest, clipping mid-word with no ellipsis. I matched the live
-  layout; an ellipsis would signal the truncation better.
-- **The header block is 2px taller than its contents.** The frame above Sessions is pinned
-  to 194px while its children add up to 192px. I matched it with a `min-h`, but it looks
-  like leftover slack from a resize rather than intentional spacing.
+  "Combined ARR (USD)" and the settings column are cut off and cannot be reached. I assume
+  there would be a side scroll, but then I wonder if the play button is sticky... something
+  to be clarified.
 - **Featured Pages rows are 41px.** 40px of content plus a 0.5px rule reads as 40.5px, and
   the frame is rounded to 41. Harmless here, but it means the row height and the grid it
   sits in disagree by half a pixel.
